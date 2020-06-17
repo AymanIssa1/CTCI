@@ -1,5 +1,9 @@
 package Trees_and_Graphs;
 
+import java.util.AbstractQueue;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Routes_Between_Nodes {
 
     void dfs_search(Node root) {
@@ -12,6 +16,22 @@ public class Routes_Between_Nodes {
                 dfs_search(n);
         }
 
+    }
+
+    void bfs_search(Node root){
+        Queue<Node> queue = new LinkedList<>();
+        root.visited = true;
+        queue.add(root);
+
+        while (!queue.isEmpty()){
+            Node node = queue.poll();
+            System.out.print(root.name + " -> ");
+            for (Node n : node.children){
+                n.visited = true;
+                queue.add(n);
+            }
+
+        }
     }
 
 }
