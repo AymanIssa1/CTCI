@@ -28,14 +28,14 @@ public class Validate_8ST {
     // Solution #2: In-Order Traversal
     boolean checkBST2(TreeNode n) {
         Integer last_printed = null;
-        return checkBST2Impl(n, last_printed);
+        return checkBST2(n, last_printed);
     }
 
-    boolean checkBST2Impl(TreeNode n, Integer last_printed) {
+    boolean checkBST2(TreeNode n, Integer last_printed) {
         if (n == null) return true;
 
         // Check / recurse left
-        if (!checkBST2Impl(n.left, last_printed)) return false;
+        if (!checkBST2(n.left, last_printed)) return false;
 
         // Chect current
         if (last_printed != null && n.value <= last_printed)
@@ -44,9 +44,27 @@ public class Validate_8ST {
         last_printed = n.value;
 
         // Check / recurse right
-        if (!checkBST2Impl(n.right, last_printed)) return false;
+        if (!checkBST2(n.right, last_printed)) return false;
 
         return true; // All good!
     }
+
+    // Solution #3: The Min / Max Solution
+    boolean checkBST3(TreeNode n) {
+        return checkBST3(n, null, null);
+    }
+
+    boolean checkBST3(TreeNode n, Integer min, Integer max) {
+        if (n == null)
+            return true;
+
+        if ((min != null && n.value <= min) || (max != null && n.value > max))
+            return false;
+
+        if (!checkBST3(n.left, min, n.value) || !checkBST3(n.right, n.value, max))
+            return false;
+        return true;
+    }
+
 
 }
